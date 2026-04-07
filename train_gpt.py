@@ -85,6 +85,7 @@ class Hyperparameters:
     beta2 = float(os.environ.get("BETA2", 0.95))
     adam_eps = float(os.environ.get("ADAM_EPS", 1e-8))
     grad_clip_norm = float(os.environ.get("GRAD_CLIP_NORM", 0.0))
+    zlib_level = int(os.environ.get("ZLIB_LEVEL", 9))
 
 # -----------------------------
 # MUON OPTIMIZER 
@@ -1079,7 +1080,8 @@ def main() -> None:
     quant_buf = io.BytesIO()
     torch.save(quant_obj, quant_buf)
     quant_raw = quant_buf.getvalue()
-    quant_blob = zlib.compress(quant_raw, level=9)
+    zlib_level = max(0, min(args.zlib_level, 9))
+    quant_blob = zlib.compress(quant_raw, level=zlib_level)
     quant_raw_bytes = len(quant_raw)
     if master_process:
         with open("final_model.int8.ptz", "wb") as f:
@@ -1089,7 +1091,7 @@ def main() -> None:
         ratio = quant_stats["baseline_tensor_bytes"] / max(quant_stats["int8_payload_bytes"], 1)
         log0(
             f"Serialized model int8+zlib: {quant_file_bytes} bytes "
-            f"(payload:{quant_stats['int8_payload_bytes']} raw_torch:{quant_raw_bytes} payload_ratio:{ratio:.2f}x)"
+            f"(payload:{quant_stats['int8_payload_bytes']} raw_torch:{quant_raw_bytes} payload_ratio:{ratio:.2f}x zlib_level:{zlib_level})"
         )
         log0(f"final_artifact_size_bytes:{quant_file_bytes}")
         log0(f"Total submission size int8+zlib: {quant_file_bytes + code_bytes} bytes")
