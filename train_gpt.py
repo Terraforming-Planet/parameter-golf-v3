@@ -597,7 +597,6 @@ class CausalSelfAttention(nn.Module):
             v,
             attn_mask=None,
             is_causal=True,
-            enable_gqa=(self.num_kv_heads != self.num_heads),
         )
         y = y.transpose(1, 2).contiguous().reshape(bsz, seqlen, dim)
         return self.proj(y)
@@ -733,7 +732,7 @@ def main() -> None:
 
     code = Path(__file__).read_text(encoding="utf-8")
     args = Hyperparameters()
-    zeropower_via_newtonschulz5 = torch.compile(zeropower_via_newtonschulz5)
+    zeropower_via_newtonschulz5 = zeropower_via_newtonschulz5
 
     # -----------------------------
     # DISTRIBUTED + CUDA SETUP
@@ -840,8 +839,7 @@ def main() -> None:
         if isinstance(module, CastedLinear):
             module.float()
     restore_low_dim_params_to_fp32(base_model)
-    compiled_model = torch.compile(base_model, dynamic=False, fullgraph=True)
-    model: nn.Module = DDP(compiled_model, device_ids=[local_rank], broadcast_buffers=False) if distributed else compiled_model
+    model: nn.Module = DDP(base_model, device_ids=[local_rank], broadcast_buffers=False) if distributed else base_model
 
     # Optimizer split:
     # - token embedding (Adam) uses EMBED_LR
