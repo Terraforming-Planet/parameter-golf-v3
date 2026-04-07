@@ -6,30 +6,27 @@ Date: 2026-04-07
 
 ### Completed
 
-- Baseline training scaffold is in place at repository root (`train_gpt.py`) and in the non-record submission template.
-- Compatibility-oriented training-path changes are present for current RunPod/PyTorch environments:
+- Repository baseline training path is active at `train_gpt.py` and synchronized into `records/non_record_submission_template/train_gpt.py`.
+- Compatibility-oriented training-path settings for current RunPod/PyTorch environments are in place:
   - no `enable_gqa` argument in `scaled_dot_product_attention`
   - no `torch.compile` wrapping for `zeropower_via_newtonschulz5`
   - no `torch.compile` wrapping for `base_model`
-- Submission packaging scaffold exists under `records/non_record_submission_template/` with template `README.md`, `submission.json`, and `train_gpt.py`.
-- A verified baseline run record now exists at `records/track_non_record_16mb/2026-04-07_VerifiedBaseline/`, including measured baseline `val_bpb`, training time, and artifact byte accounting from the completed baseline run.
+- A verified baseline record exists at `records/track_non_record_16mb/2026-04-07_VerifiedBaseline/` with measured `val_bpb`, `val_loss`, training time, and artifact byte totals from a completed run.
 
 ### Current verification state
 
-- Baseline verification is complete for the repository baseline path.
-- Verified baseline metrics and size totals are captured in the dedicated verified baseline record folder.
-- Further tuning runs remain optional and should be added as separate dated records.
+- Verified baseline run: complete.
+- Baseline values are stored in the verified baseline folder (`README.md` + `submission.json`).
+- Next work is limited to controlled, single-change FineWeb `val_bpb` experiments.
 
-## Priority
+## Benchmark scope (frozen)
 
-**Current top priority is incremental improvement over the verified baseline** while preserving reproducibility and submission consistency.
+- **Official benchmark path only:** `openai_parameter_golf_fineweb_val_bpb`.
+- **Custom datasets are frozen and excluded from benchmark planning and tuning.**
+- No project-structure redesign; only small, high-signal iterations on the official path.
 
-## Benchmark scope clarification
+## Controlled experiment variants (next)
 
-The following three datasets are tracked as **auxiliary evaluation assets only** (diagnostics/sanity checks), not the official benchmark path:
-
-- Cube-Multi-Object-Consistency-Dataset
-- planet-alphabet-mapping-1-26
-- geometric_optics_physical_consistency_eval
-
-The **official benchmark path remains FineWeb validation with `val_bpb`**.
+1. **Variant A (architecture-only):** `NUM_KV_HEADS=8` (MQA/GQA simplification removed while keeping all other settings fixed).
+2. **Variant B (training-only):** `WARMDOWN_ITERS=1800` (longer decay tail, all architecture/export settings unchanged).
+3. **Variant C (compression/export-only):** `ZLIB_LEVEL=6` (export-level-only change, train/eval graph unchanged).
