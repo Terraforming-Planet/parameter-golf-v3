@@ -1,0 +1,31 @@
+{
+  "submission_name": "PLACEHOLDER_RUN_NAME",
+  "track": "non_record_16mb",
+  "author": {
+    "name": "PLACEHOLDER_NAME",
+    "github": "PLACEHOLDER_GITHUB"
+  },
+  "base_commit": "PLACEHOLDER_COMMIT_SHA",
+  "created_at_utc": "PLACEHOLDER_UTC_TIMESTAMP",
+  "task": "openai_parameter_golf_fineweb_val_bpb",
+  "primary_metric": {
+    "name": "val_bpb",
+    "value": "PLACEHOLDER_REAL_MEASURED_VALUE"
+  },
+  "hardware": {
+    "gpus": "PLACEHOLDER_GPU_CONFIG",
+    "training_time_seconds": "PLACEHOLDER_REAL_MEASURED_SECONDS"
+  },
+  "artifact_sizes_bytes": {
+    "code_bytes": "PLACEHOLDER_REAL_CODE_BYTES",
+    "compressed_model_bytes": "PLACEHOLDER_REAL_MODEL_BYTES",
+    "total_bytes": "PLACEHOLDER_REAL_TOTAL_BYTES"
+  },
+  "repro": {
+    "train_command": "PLACEHOLDER_COMMAND",
+    "notes": "PLACEHOLDER_REPRO_NOTES"
+  },
+  "logs": [
+    "PLACEHOLDER_LOG_FILENAME"
+  ]
+}
