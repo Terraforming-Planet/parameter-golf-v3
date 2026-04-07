@@ -12,17 +12,17 @@ Date: 2026-04-07
   - no `torch.compile` wrapping for `zeropower_via_newtonschulz5`
   - no `torch.compile` wrapping for `base_model`
 - Submission packaging scaffold exists under `records/non_record_submission_template/` with template `README.md`, `submission.json`, and `train_gpt.py`.
+- A verified baseline run record now exists at `records/track_non_record_16mb/2026-04-07_VerifiedBaseline/`, including measured baseline `val_bpb`, training time, and artifact byte accounting from the completed baseline run.
 
-### Still unverified
+### Current verification state
 
-- End-to-end baseline run completion in the current environment (including successful final artifact generation).
-- Verified official benchmark numbers (`val_bpb` on FineWeb validation) from a fully successful run.
-- Final byte accounting with verified compressed model artifact for submission fields.
-- Required submission artifacts are pending verification (final logs, measured metric values, artifact size totals).
+- Baseline verification is complete for the repository baseline path.
+- Verified baseline metrics and size totals are captured in the dedicated verified baseline record folder.
+- Further tuning runs remain optional and should be added as separate dated records.
 
 ## Priority
 
-**Current top priority is baseline execution stability** (i.e., getting deterministic, repeatable baseline training/evaluation runs to complete cleanly in current runtime stacks before performance tuning).
+**Current top priority is incremental improvement over the verified baseline** while preserving reproducibility and submission consistency.
 
 ## Benchmark scope clarification
 
