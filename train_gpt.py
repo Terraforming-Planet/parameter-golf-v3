@@ -591,13 +591,17 @@ class CausalSelfAttention(nn.Module):
         q = apply_rotary_emb(q, cos, sin)
         k = apply_rotary_emb(k, cos, sin)
         q = q * self.q_gain.to(dtype=q.dtype)[None, :, None, None]
-        y = F.scaled_dot_product_attention(
-            q,
-            k,
-            v,
-            attn_mask=None,
-            is_causal=True,
-        )
+        if self.num_kv_heads != self.num_heads:
+            repeat_factor = self.num_heads // self.num_kv_heads
+            k = k.repeat_interleave(repeat_factor, dim=1)
+            v = v.repeat_interleave(repeat_factor, dim=1)
+
+        scale = 1.0 / math.sqrt(self.head_dim)
+        att = torch.matmul(q, k.transpose(-2, -1)) * scale
+        causal_mask = torch.triu(torch.ones((seqlen, seqlen), device=x.device, dtype=torch.bool), diagonal=1)
+        att = att.masked_fill(causal_mask, torch.finfo(att.dtype).min)
+        att = torch.softmax(att, dim=-1, dtype=torch.float32).to(dtype=q.dtype)
+        y = torch.matmul(att, v)
         y = y.transpose(1, 2).contiguous().reshape(bsz, seqlen, dim)
         return self.proj(y)
 

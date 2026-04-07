@@ -19,6 +19,13 @@ Required files for submission packaging:
 - Record-track runs must be reproducible in **10 minutes on 8xH100**.
 - Evaluation must be self-contained, with **no external network/download calls**.
 
+
+## Verification gate (important)
+
+- This folder is a scaffold and not yet a verified submission package by itself.
+- Fill official values only after a verified run completes successfully (measured `val_bpb`, runtime, and byte counts).
+- Required artifacts are pending until verification is complete: final training logs, final compressed model artifact, and validated submission.json metrics/size fields.
+
 ## train_gpt.py note
 
 `train_gpt.py` in this template is inherited from the repository baseline as a compatibility starting point. Replace or edit it only as needed for your method, while keeping workflow compatibility with official Parameter Golf evaluation.

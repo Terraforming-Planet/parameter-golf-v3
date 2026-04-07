@@ -28,6 +28,13 @@ Use `records/non_record_submission_template/` as the starting point for preparin
 
 When you have real results, copy this template into a dated run folder under `records/` and replace placeholders with measured values.
 
+
+## Submission status guidance
+
+- The submission scaffold exists, but it is still a template until a run is fully verified.
+- Official submission values (metric, timing, byte counts, hardware/runtime details) must only be filled in after a verified run.
+- Required artifacts are currently pending verification (final logs, final compressed artifact size accounting, and verified FineWeb `val_bpb`).
+
 ## Auxiliary path (non-official)
 
 Use `aux_eval/` for custom datasets and diagnostics only. Keep these experiments clearly separated from the official FineWeb/`val_bpb` submission workflow.
