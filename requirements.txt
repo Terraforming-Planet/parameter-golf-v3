@@ -1,10 +1,8 @@
-numpy
-tqdm
+# Minimal baseline requirements for the official train_gpt.py workflow.
+# Keep this list intentionally small and focused on core baseline + dataset fetch.
 torch
-huggingface-hub
-kernels
-setuptools
-typing-extensions==4.15.0
-datasets
-tiktoken
+numpy
 sentencepiece
+datasets
+huggingface-hub
+tqdm
