@@ -64,3 +64,33 @@ MATCHED_FINEWEB_GPT2_DECODE_BATCH_SIZE=512
 ```
 
 These control batched tokenizer encoding during shard export, tokenizer thread count, tiktoken thread count, and batched GPT-2 decode for the blobstore docs-cache path.
+
+
+## Downloading Custom HF Datasets (Auxiliary Experiments)
+
+For custom/non-official experiments (for example `8Planetterraforming/Cube-Multi-Object-Consistency-Dataset`),
+export a Hugging Face dataset into the same shard format expected by `train_gpt.py`:
+
+```bash
+python3 data/download_hf_dataset_and_tokenize.py \
+  --dataset-id 8Planetterraforming/Cube-Multi-Object-Consistency-Dataset \
+  --tokenizer-path ./data/tokenizers/fineweb_1024_bpe.model \
+  --output-dir ./data/datasets/cube_multi_object_consistency_sp1024 \
+  --max-train-docs 200000 \
+  --max-val-docs 500
+```
+
+If the dataset is private/gated, authenticate first:
+
+```bash
+huggingface-cli login
+```
+
+Then train with:
+
+```bash
+DATA_PATH=./data/datasets/cube_multi_object_consistency_sp1024 \
+TOKENIZER_PATH=./data/tokenizers/fineweb_1024_bpe.model \
+VOCAB_SIZE=1024 \
+torchrun --standalone --nproc_per_node=1 train_gpt.py
+```
