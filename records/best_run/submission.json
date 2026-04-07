@@ -1,0 +1,30 @@
+{
+  "submission_name": "arch_v1_refined",
+  "track": "non_record_16mb",
+  "author": {
+    "name": "parameter-golf-v3",
+    "github": "openai"
+  },
+  "base_commit": "unknown",
+  "created_at_utc": "2026-04-07T00:00:00Z",
+  "task": "openai_parameter_golf_fineweb_val_bpb",
+  "primary_metric": {
+    "name": "val_bpb",
+    "value": 1.86808647
+  },
+  "aux_metrics": {
+    "val_loss": 3.15418576
+  },
+  "artifact_sizes_bytes": {
+    "code_bytes": 48238,
+    "compressed_model_bytes": 4971557,
+    "total_submission_size_int8_zlib": 5019795
+  },
+  "repro": {
+    "train_command": "RUN_ID=arch_v1_refined DATA_PATH=./data/datasets/fineweb10B_sp1024 TOKENIZER_PATH=./data/tokenizers/fineweb_1024_bpe.model VOCAB_SIZE=1024 NUM_LAYERS=8 MODEL_DIM=384 NUM_HEADS=8 NUM_KV_HEADS=2 MLP_MULT=2 WARMUP_STEPS=60 ITERATIONS=300 VAL_LOSS_EVERY=50 TRAIN_LOG_EVERY=25 torchrun --standalone --nproc_per_node=1 train_gpt.py",
+    "notes": "Values recorded from the verified arch_v1_refined run in records/best_run/train.log."
+  },
+  "logs": [
+    "train.log"
+  ]
+}
