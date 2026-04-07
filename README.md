@@ -15,25 +15,24 @@ Train a language model for the OpenAI Parameter Golf challenge and optimize the 
 
 - `train_gpt.py` — baseline-compatible training script at repo root for local iteration.
 - `records/non_record_submission_template/` — template folder structured for official-style submission artifacts.
+- `records/track_non_record_16mb/2026-04-07_VerifiedBaseline/` — verified baseline record with measured values.
 - `aux_eval/` — auxiliary diagnostics/custom dataset experiments (not part of official submission path).
 
 ## Official submission path
 
-Use `records/non_record_submission_template/` as the starting point for preparing a submission-ready folder:
+Use `records/non_record_submission_template/` as the starting point for preparing new submission-ready folders, then copy it into a dated run folder under `records/` and replace placeholders with measured values.
 
-- `README.md`
-- `submission.json`
-- `train_gpt.py`
-- train logs and artifact notes
+A verified baseline reference record is already available at:
 
-When you have real results, copy this template into a dated run folder under `records/` and replace placeholders with measured values.
+- `records/track_non_record_16mb/2026-04-07_VerifiedBaseline/`
 
+This provides a consistent measured starting point for future tuning and comparisons.
 
 ## Submission status guidance
 
-- The submission scaffold exists, but it is still a template until a run is fully verified.
-- Official submission values (metric, timing, byte counts, hardware/runtime details) must only be filled in after a verified run.
-- Required artifacts are currently pending verification (final logs, final compressed artifact size accounting, and verified FineWeb `val_bpb`).
+- Baseline verification has been completed and a verified baseline record is checked in.
+- Official submission values (metric, timing, byte counts, hardware/runtime details) in new records must still be filled only from real measured runs.
+- Keep template files as scaffolding only; keep measured values in dated run folders.
 
 ## Auxiliary path (non-official)
 
